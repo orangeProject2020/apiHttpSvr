@@ -1,0 +1,31 @@
+{
+  "name": "apiHttpSvr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orangeProject2020/apiHttpSvr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orangeProject2020/apiHttpSvr/issues"
+  },
+  "homepage": "https://github.com/orangeProject2020/apiHttpSvr#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jayson": "^3.0.2",
+    "log4js": "^4.4.0",
+    "md5": "^2.2.1",
+    "method-override": "^3.0.0",
+    "request": "^2.88.0",
+    "uuid": "^3.3.2"
+  }
+}
