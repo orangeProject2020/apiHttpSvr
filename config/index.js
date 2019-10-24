@@ -8,6 +8,9 @@ let config = {
   channels: [{
     id: '886',
     key: 'qsopifkhjjgjgfossfngnjgdsknkjlkljs'
+  }, {
+    id: '887',
+    key: 'sdgjshhgdsagjdjkhkklgskjesegauhopqpogb'
   }]
 }
 

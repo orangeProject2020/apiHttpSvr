@@ -57,6 +57,7 @@ let clients = {}
 
 Object.keys(clientConfig).forEach(k => {
   clients[k + 'ProxyClient'] = new Client(clientConfig[k])
+  console.log('load client ' + k + 'ProxyClient')
 })
 module.exports = clients
 
