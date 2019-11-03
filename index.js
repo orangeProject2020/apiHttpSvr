@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors');
 const app = express()
+const path = require('path')
 // const jayson = require('jayson')
 const md5 = require('md5')
 const uuid = require('uuid')
@@ -116,7 +117,12 @@ const apiAuthCheck = async (req, res, next) => {
   next()
 }
 
+// 上传
+app.use('/upload', require('./upload'))
+
 app.use(apiAuthCheck)
+
+
 
 // rpc客户端请求
 // const rpcClient = jayson.client
@@ -212,4 +218,10 @@ app.use(errorHandler)
 
 app.listen(CONFIG.port, () => {
   console.log('api server start at port: ', CONFIG.port)
+
+  const appFileServer = express()
+  appFileServer.use('/uploads', express.static(path.join(__dirname, './uploads')))
+  appFileServer.listen(CONFIG.portFile, () => {
+    console.log('file server start at port: ', CONFIG.portFile)
+  })
 })

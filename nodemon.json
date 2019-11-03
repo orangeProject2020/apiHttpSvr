@@ -12,7 +12,8 @@
     "lib/",
     "config/",
     "index.js",
-    "client"
+    "client",
+    "upload.js"
   ],
   "ignore": [
     ".svn",
