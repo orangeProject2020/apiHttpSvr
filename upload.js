@@ -38,7 +38,12 @@ router.post('/single', upload.single('photo'), function (req, res, next) {
 
   return res.json({
     code: 0,
-    url: url
+    message: "",
+    data: {
+      url: url,
+      path: file.path
+    }
+
   })
 })
 
