@@ -25,6 +25,9 @@ app.use(bodyParser.text({
   type: 'text/xml'
 }))
 app.use(methodOverride())
+
+// 上传
+app.use('/upload', require('./upload'))
 app.use(cors())
 
 // 获取时间戳
@@ -117,8 +120,7 @@ const apiAuthCheck = async (req, res, next) => {
   next()
 }
 
-// 上传
-app.use('/upload', require('./upload'))
+
 
 app.use(apiAuthCheck)
 
