@@ -161,7 +161,8 @@ app.post('/:mod/:con/:func', async (req, res) => {
 
   let ret = {
     code: 0,
-    message: 'success'
+    message: 'success',
+    data: {}
   }
 
   if (!CONFIG.rpcClients.hasOwnProperty(mod)) {
@@ -180,6 +181,11 @@ app.post('/:mod/:con/:func', async (req, res) => {
   let rpcFunc = con + '_' + func
   let rpcArgs = req.body || {}
   rpcArgs.uuid = req.headers.uuid || '123456'
+
+  let token = req.headers.token || req.query.token || req.body.token || ''
+  if (token) {
+    rpcArgs.TOKEN = token
+  }
   log.info(req.headers.uuid, req.headers.channel_id, rpcFunc, 'args', rpcArgs)
 
   // rpcRet = await rpcRequest(client, rpcFunc, rpcArgs)
