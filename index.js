@@ -61,7 +61,8 @@ const apiAuthCheck = async (req, res, next) => {
   log.info(headers.uuid, 'body', req.body)
   log.info(headers.uuid, 'headers', req.headers)
 
-  let channelId = headers.channel_id || ''
+  let channelId = headers.channel_id || req.body.channel_id || ''
+  log.info(headers.uuid, 'channelId', channelId)
   // let signKey = headers.sign_key || ''
 
   let timestamp = headers.timestamp
