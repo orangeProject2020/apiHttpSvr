@@ -190,14 +190,15 @@ app.post('/:mod/:con/:func', async (req, res) => {
   rpcArgs.uuid = req.headers.uuid || '123456'
 
   let token = req.headers.token || req.query.token || req.body.token || ''
+  let channelId = req.headers.channel_id || req.body.channel_id || ''
   if (token) {
     rpcArgs.TOKEN = token
   }
-  log.info(req.headers.uuid, req.headers.channel_id, rpcFunc, 'args', rpcArgs)
+  log.info(req.headers.uuid, channelId, rpcFunc, 'args', rpcArgs)
 
   // rpcRet = await rpcRequest(client, rpcFunc, rpcArgs)
   rpcRet = await client.request(rpcFunc, rpcArgs)
-  log.info(req.headers.uuid, req.headers.channel_id, rpcFunc, 'ret', rpcRet)
+  log.info(req.headers.uuid, channelId, rpcFunc, 'ret', rpcRet)
   // console.log(rpcRet)
   return res.json(rpcRet)
 })
