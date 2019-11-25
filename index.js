@@ -55,6 +55,7 @@ const apiAuthCheck = async (req, res, next) => {
 
 
   let headers = req.headers || {}
+  log.info('/headers', req.headers)
   headers.uuid = headers.uuid || uuid.v4()
 
   log.info(headers.uuid, 'body', req.body)
