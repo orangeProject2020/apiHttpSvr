@@ -52,11 +52,14 @@ app.get('/timestamp', (req, res) => {
  * @param {*} next 
  */
 const apiAuthCheck = async (req, res, next) => {
-  log.info(headers.uuid, 'body', req.body)
-  log.info(headers.uuid, 'headers', req.headers)
+
 
   let headers = req.headers || {}
   headers.uuid = headers.uuid || uuid.v4()
+
+  log.info(headers.uuid, 'body', req.body)
+  log.info(headers.uuid, 'headers', req.headers)
+
   let channelId = headers.channel_id || ''
   // let signKey = headers.sign_key || ''
 
