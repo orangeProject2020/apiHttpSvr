@@ -9,6 +9,17 @@ const CONFIG = require('./config')
 const clients = require('./client')
 const utilsClient = clients['utilsProxyClient']
 
+router.use((req, res, next) => {
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, HEAD, DELETE, OPTIONS");
+  res.setHeader("X-Powered-By", "3.2.1");
+
+  next()
+})
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -73,11 +84,7 @@ var uploadSlice = multer({
 })
 
 router.use('/', async (req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, HEAD, DELETE, OPTIONS");
-  res.setHeader("X-Powered-By", "3.2.1");
+
 
   let query = req.query || {}
   if (!query.md5 || !query.size || !query.ext || !query.hasOwnProperty('step') || !query.chunks) {
