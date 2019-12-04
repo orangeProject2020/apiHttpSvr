@@ -13,7 +13,8 @@
     "config/",
     "index.js",
     "client",
-    "upload.js"
+    "upload.js",
+    "notify.js"
   ],
   "ignore": [
     ".svn",
