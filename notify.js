@@ -7,7 +7,7 @@ const mallClient = clients['mallProxyClient']
 const log = require('./lib/log')('notify')
 
 router.post('/alipay', async function (req, res) {
-  log.info('/alipay body:', body)
+  log.info('/alipay body:', req.body)
   let data = {
     ...req.body
   }
