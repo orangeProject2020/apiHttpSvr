@@ -28,6 +28,7 @@ app.use(methodOverride())
 
 // 上传
 app.use('/upload', require('./upload'))
+app.use('/notify', require('./notify'))
 app.use(cors())
 
 // 获取时间戳

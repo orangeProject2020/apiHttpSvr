@@ -12,10 +12,10 @@ router.post('/alipay', async function (req, res) {
     ...req.body
   }
   data.uuid = uuid.v4()
-  ret = await mallClient.request('order_notifyAlipay', data)
+  let ret = await mallClient.request('order_notifyAlipay', data)
 
-  console.log('/alipay ret:', ret)
-  if (ret.code === '0') {
+  log.info('/alipay ret:', ret)
+  if (ret.code == 0) {
     res.send('success')
   } else {
     res.send('fail')
@@ -23,3 +23,5 @@ router.post('/alipay', async function (req, res) {
   // return res.json(ret)
 
 })
+
+module.exports = router
