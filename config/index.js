@@ -5,7 +5,7 @@ const env = process.env.NODE_ENV
 let config = {
   port: 10000,
   portFile: 10021,
-  hostFile: 'http://127.0.0.1:10021',
+  hostFile: process.env.NODE_ENV === 'production' ? 'http://img.sunonenight.com' : 'http://127.0.0.1:10021',
   // api请求渠道配置
   channels: [{
     id: '886',
