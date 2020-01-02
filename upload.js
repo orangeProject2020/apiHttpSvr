@@ -58,6 +58,29 @@ router.post('/single', upload.single('photo'), function (req, res, next) {
   })
 })
 
+router.post('/multi', upload.array('photos', 10), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  let files = req.files
+  console.log('/multi files', files)
+
+  let data = []
+  files.forEach(file => {
+    let url = CONFIG.hostFile + '/' + file.path
+    data.push({
+      url: url,
+      path: file.path
+    })
+  })
+
+
+  return res.json({
+    code: 0,
+    message: "",
+    data: data
+  })
+})
+
 
 var storageSlice = multer.diskStorage({
   destination: function (req, file, cb) {
