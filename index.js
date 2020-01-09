@@ -190,6 +190,8 @@ app.post('/:mod/:con/:func', async (req, res) => {
   let rpcArgs = req.body || {}
   rpcArgs.uuid = req.headers.uuid || '123456'
 
+  rpcArgs.ip = req.headers['x-real-ip'] ? req.headers['x-real-ip'] : req.ip.replace(/::ffff:/, '')
+
   let token = req.headers.token || req.query.token || req.body.token || ''
   let channelId = req.headers.channel_id || req.body.channel_id || ''
   if (token) {
