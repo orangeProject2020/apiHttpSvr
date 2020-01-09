@@ -2,10 +2,25 @@ const express = require('express')
 const router = express.Router()
 const uuid = require('uuid')
 const clients = require('./client')
+const xml2js = require('xml2js')
 // const utilsClient = clients['utilsProxyClient']
 const mallClient = clients['mallProxyClient']
 const log = require('./lib/log')('notify')
 
+let xmlToObj = (xml) => {
+  var parseString = xml2js.parseString
+  return new Promise((resolve, reject) => {
+    parseString(xml, {
+      explicitArray: false
+    }, (err, result) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(result.xml)
+    })
+  })
+
+}
 router.post('/alipay', async function (req, res) {
   log.info('/alipay body:', req.body)
   let data = {
@@ -24,6 +39,43 @@ router.post('/alipay', async function (req, res) {
     res.send('fail')
   }
   // return res.json(ret)
+
+})
+
+router.post('/wxpay', async function (req, res) {
+  log.info('/wxpay body:', req.body)
+
+  let obj = req.body
+  if (typeof obj == 'string') {
+    obj = await xmlToObj(obj)
+  }
+
+  Logger.info('/wxpay obj', obj)
+  let resultCode = obj.return_code
+  let outTradeNo = obj.out_trade_no
+
+  if (resultCode == 'SUCCESS') {
+    let data = obj
+    data.uuid = uuid.v4()
+    log.info('/wxpay data:', data)
+    let ret = await mallClient.request('order_notifyWxpay', data)
+
+    log.info('/wxpay ret:', ret)
+    if (ret.code == 0) {
+      // res.send('succuess')
+      res.send(`<xml>
+<return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+</xml>`)
+    } else {
+      return res.send(`<return_code><![CDATA[FAIL]]></return_code>
+  <return_msg><![CDATA[fail]]></return_msg>
+</xml>`)
+    }
+
+  } else {
+    log.info('/wxpay resultCode', resultCode)
+  }
 
 })
 
