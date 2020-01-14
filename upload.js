@@ -20,6 +20,53 @@ router.use((req, res, next) => {
   next()
 })
 
+router.post('/base64', async (req, res) => {
+  //接收前台POST过来的base64
+  console.log('/base64 body', req.body)
+  let imgData = req.body.content;
+  let imgName = req.body.name
+  //过滤data:URL
+  let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+  let dataBuffer = Buffer.from(base64Data, 'base64');
+
+  let fileFolder = monent().format('YYYYMMDD')
+  let fileFolderPath = path.join(__dirname, 'uploads/' + fileFolder)
+  if (!fs.existsSync(fileFolderPath)) {
+    fs.mkdirSync(fileFolderPath)
+  }
+
+  let fileNameSplit = imgName.split('.')
+  let fileExt = fileNameSplit[fileNameSplit.length - 1]
+  let imgSaveName = uuid.v4() + '.' + fileExt
+  let imgFilePath = path.join(fileFolderPath, imgSaveName)
+  console.log('/base64 imgFilePath:', imgFilePath)
+  let imgPath = 'uploads/' + fileFolder + '/' + imgSaveName
+  console.log('/base64 imgPath:', imgPath)
+
+  fs.writeFile(imgFilePath, dataBuffer, function (err) {
+    if (err) {
+      console.error('/base64 err:', err)
+      return res.json({
+        code: 1,
+        message: '上传失败'
+      });
+    } else {
+      let url = CONFIG.hostFile + '/' + imgPath
+      return res.json({
+        code: 0,
+        message: "",
+        data: {
+          url: url,
+          path: imgPath
+        }
+
+      })
+    }
+  });
+
+  return
+})
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
