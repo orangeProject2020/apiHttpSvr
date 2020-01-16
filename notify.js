@@ -46,24 +46,24 @@ router.post('/wxpay', async function (req, res) {
   log.info('/wxpay body:', req.body)
 
   let obj = req.body
-  obj = `<xml><appid><![CDATA[wxe347dd259dc36edd]]></appid>
-<bank_type><![CDATA[OTHERS]]></bank_type>
-<cash_fee><![CDATA[1]]></cash_fee>
-<device_info><![CDATA[WEB]]></device_info>
-<fee_type><![CDATA[CNY]]></fee_type>
-<is_subscribe><![CDATA[N]]></is_subscribe>
-<mch_id><![CDATA[1573075611]]></mch_id>
-<nonce_str><![CDATA[e6dc10f9407843e3b5debf648fbeca3c]]></nonce_str>
-<openid><![CDATA[o3iDewXcma3QcTS6gXVkFoyX01Rs]]></openid>
-<out_trade_no><![CDATA[91953c20c8c24360a64b459cdf29c452]]></out_trade_no>
-<result_code><![CDATA[SUCCESS]]></result_code>
-<return_code><![CDATA[SUCCESS]]></return_code>
-<sign><![CDATA[CC3C292F6B9F41D6B03A80DB8006C7C8]]></sign>
-<time_end><![CDATA[20200116110530]]></time_end>
-<total_fee>1</total_fee>
-<trade_type><![CDATA[MWEB]]></trade_type>
-<transaction_id><![CDATA[4200000520202001165910558979]]></transaction_id>
-</xml>`
+  //   obj = `<xml><appid><![CDATA[wxe347dd259dc36edd]]></appid>
+  // <bank_type><![CDATA[OTHERS]]></bank_type>
+  // <cash_fee><![CDATA[1]]></cash_fee>
+  // <device_info><![CDATA[WEB]]></device_info>
+  // <fee_type><![CDATA[CNY]]></fee_type>
+  // <is_subscribe><![CDATA[N]]></is_subscribe>
+  // <mch_id><![CDATA[1573075611]]></mch_id>
+  // <nonce_str><![CDATA[e6dc10f9407843e3b5debf648fbeca3c]]></nonce_str>
+  // <openid><![CDATA[o3iDewXcma3QcTS6gXVkFoyX01Rs]]></openid>
+  // <out_trade_no><![CDATA[91953c20c8c24360a64b459cdf29c452]]></out_trade_no>
+  // <result_code><![CDATA[SUCCESS]]></result_code>
+  // <return_code><![CDATA[SUCCESS]]></return_code>
+  // <sign><![CDATA[CC3C292F6B9F41D6B03A80DB8006C7C8]]></sign>
+  // <time_end><![CDATA[20200116110530]]></time_end>
+  // <total_fee>1</total_fee>
+  // <trade_type><![CDATA[MWEB]]></trade_type>
+  // <transaction_id><![CDATA[4200000520202001165910558979]]></transaction_id>
+  // </xml>`
   if (typeof obj == 'string') {
     obj = await xmlToObj(obj)
   }
